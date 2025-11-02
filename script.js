@@ -1,3 +1,4 @@
+// === Dados do teste ===
 const quizData = [
   {
     question: "Quando pensa em dinheiro, qual frase mais combina com você?",
@@ -23,8 +24,25 @@ const quizData = [
       { text: "Que às vezes nem sei quem sou de verdade", type: "identidade" },
     ],
   },
+  {
+    question: "Quando pensa em propósito de vida, o que sente?",
+    options: [
+      { text: "Ainda não sei qual é o meu caminho", type: "identidade" },
+      { text: "Acredito que estou no rumo certo", type: "equilíbrio" },
+      { text: "Meu propósito é servir e crescer", type: "autoestima" },
+    ],
+  },
+  {
+    question: "Como você lida com desafios e fracassos?",
+    options: [
+      { text: "Costumo me culpar e pensar que falhei", type: "autoestima" },
+      { text: "Entendo que erros fazem parte do processo", type: "equilíbrio" },
+      { text: "Fico perdido(a), sem saber quem sou depois disso", type: "identidade" },
+    ],
+  },
 ];
 
+// === Variáveis de controle ===
 let currentQuestion = 0;
 let answers = [];
 
@@ -32,6 +50,7 @@ const quiz = document.getElementById("quiz");
 const nextBtn = document.getElementById("nextBtn");
 const resultDiv = document.getElementById("result");
 
+// === Funções ===
 function loadQuestion() {
   const q = quizData[currentQuestion];
   quiz.innerHTML = `
@@ -61,6 +80,7 @@ function showResult() {
     return acc;
   }, {});
 
+  const total = answers.length;
   const dominant = Object.keys(counts).reduce((a, b) =>
     counts[a] > counts[b] ? a : b
   );
@@ -95,13 +115,42 @@ function showResult() {
         "Você demonstra equilíbrio entre diferentes áreas da vida. Continue se observando com gentileza e curiosidade — esse é um bom sinal de autoconhecimento.";
       break;
     default:
-      title = "🌱 Autoconhecimento em expansão";
+      title = "🌱 Autoconhecimento em Expansão";
       message =
         "Suas respostas mostram um olhar diversificado. Continue explorando suas crenças e emoções com abertura e leveza.";
   }
 
+  // === Criação do relatório de percentuais ===
+  let report = "<h3>Seu equilíbrio entre áreas:</h3><ul>";
+  const areas = ["dinheiro", "amor", "autoestima", "identidade", "equilíbrio"];
+  areas.forEach((a) => {
+    const percent = ((counts[a] || 0) / total * 100).toFixed(0);
+    report += `<li>${a.charAt(0).toUpperCase() + a.slice(1)}: ${percent}%</li>`;
+  });
+  report += "</ul>";
+
+  // === Exibir resultado final ===
   quiz.classList.add("hidden");
   nextBtn.classList.add("hidden");
   resultDiv.classList.remove("hidden");
-  resultDiv.innerHTML = `<h2>${title}</h2><p>${message}</p>`;
+  resultDiv.innerHTML = `
+    <h2>${title}</h2>
+    <p>${message}</p>
+    <div class="report">${report}</div>
+    <p style="margin-top:20px; font-style:italic;">✨ Reflita sobre o que mais tocou você nas respostas. A transformação começa pela consciência.</p>
+  `;
 }
+
+// === Navegação ===
+nextBtn.addEventListener("click", () => {
+  currentQuestion++;
+  nextBtn.classList.add("hidden");
+
+  if (currentQuestion < quizData.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+});
+
+loadQuestion();
