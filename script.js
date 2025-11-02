@@ -1,105 +1,130 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const quizContainer = document.getElementById("quiz");
-  const submitButton = document.getElementById("submit");
-  const resultContainer = document.getElementById("result");
-  const resultText = document.getElementById("resultText");
+const questions = [
+  {
+    text: "Evito conflito, mesmo quando algo me incomoda profundamente.",
+    archetype: "O Pacificador",
+  },
+  {
+    text: "Sinto que preciso ajudar todos, mesmo que isso me esgote.",
+    archetype: "O Salvador",
+  },
+  {
+    text: "Tenho medo de mostrar minha força e ser julgada ou atacada.",
+    archetype: "Ferida da Bruxa",
+  },
+  {
+    text: "Sinto que, se eu não controlar tudo, as coisas darão errado.",
+    archetype: "Fardo do Controle",
+  },
+  {
+    text: "Associo ser desejada com ser valorizada.",
+    archetype: "Ferida do Amor Condicional",
+  },
+  {
+    text: "Acredito que não tenho nada de especial a oferecer.",
+    archetype: "Carência de Valor",
+  },
+  {
+    text: "Acho perigoso me mostrar vulnerável.",
+    archetype: "Vulnerabilidade Negada",
+  },
+  {
+    text: "Se eu for muito independente, temo ser rejeitada ou explorada.",
+    archetype: "Independência Punida",
+  },
+];
 
-  const questions = [
-    { area: "Dinheiro", text: "Quando penso em prosperar financeiramente, sinto culpa ou medo?" },
-    { area: "Amor", text: "Tenho dificuldade em confiar que sou digno(a) de amor?" },
-    { area: "Autoestima", text: "Costumo me comparar com os outros e me sentir inferior?" },
-    { area: "Identidade", text: "Sinto que preciso agradar para ser aceito(a)?" },
-    { area: "Propósito", text: "Sinto que minha vida não tem uma direção clara?" },
-    { area: "Espiritualidade", text: "Sinto-me desconectado(a) de algo maior ou sem fé?" },
-    { area: "Corpo", text: "Tenho dificuldade em aceitar ou cuidar do meu corpo?" },
-    { area: "Sucesso", text: "Temo que o sucesso traga rejeição ou solidão?" },
-    { area: "Equilíbrio", text: "Sinto que estou sempre em desequilíbrio entre trabalho e descanso?" }
-  ];
+let currentQuestion = 0;
+let scores = {};
+questions.forEach((q) => (scores[q.archetype] = 0));
 
-  function buildQuiz() {
-    quizContainer.innerHTML = questions.map((q, index) => `
-      <div class="question">
-        <h3>${index + 1}. ${q.text}</h3>
-        <div class="options">
-          <label><input type="radio" name="q${index}" value="1"> Nunca</label>
-          <label><input type="radio" name="q${index}" value="2"> Raramente</label>
-          <label><input type="radio" name="q${index}" value="3"> Às vezes</label>
-          <label><input type="radio" name="q${index}" value="4"> Frequentemente</label>
-          <label><input type="radio" name="q${index}" value="5"> Sempre</label>
-        </div>
-      </div>
-    `).join("");
-  }
+const quizEl = document.getElementById("quiz");
+const nextButton = document.getElementById("nextButton");
+const resultEl = document.getElementById("result");
+const resultText = document.getElementById("resultText");
+const ctx = document.getElementById("resultChart");
 
-  function calculateResults() {
-    const scores = {};
-    questions.forEach((q, i) => {
-      const selected = document.querySelector(`input[name=q${i}]:checked`);
-      if (selected) {
-        if (!scores[q.area]) scores[q.area] = 0;
-        scores[q.area] += parseInt(selected.value);
-      }
-    });
-
-    const total = Object.values(scores).reduce((a, b) => a + b, 0);
-    if (total === 0) {
-      alert("Responda todas as perguntas antes de ver o resultado 😊");
-      return;
-    }
-
-    const percentages = {};
-    for (const area in scores) {
-      percentages[area] = Math.round((scores[area] / total) * 100);
-    }
-
-    showResults(percentages);
-  }
-
-  function showResults(percentages) {
-    quizContainer.classList.add("hidden");
-    submitButton.classList.add("hidden");
-    resultContainer.classList.remove("hidden");
-
-    const ctx = document.getElementById("chart").getContext("2d");
-    new Chart(ctx, {
-      type: "pie",
-      data: {
-        labels: Object.keys(percentages),
-        datasets: [{
-          data: Object.values(percentages),
-          backgroundColor: [
-            "#93c5fd", "#fda4af", "#fde68a", "#a7f3d0",
-            "#c7d2fe", "#f9a8d4", "#fdba74", "#86efac", "#fcd34d"
-          ],
-        }],
-      },
-    });
-
-    let maior = Object.entries(percentages).sort((a, b) => b[1] - a[1])[0];
-    const reflexoes = {
-      "Dinheiro": "Pode haver crenças ligadas à escassez, merecimento ou medo de perder.",
-      "Amor": "Talvez existam padrões relacionados a rejeição ou autossabotagem nos relacionamentos.",
-      "Autoestima": "Você pode estar sendo chamado(a) a reconhecer seu valor genuíno.",
-      "Identidade": "Questões sobre quem você é e o quanto se expressa livremente podem estar ativas.",
-      "Propósito": "Pode haver um chamado para se alinhar mais com o que dá sentido à sua vida.",
-      "Espiritualidade": "Um convite para reconectar-se com sua fé, sentido ou espiritualidade pessoal.",
-      "Corpo": "Talvez seu corpo esteja pedindo mais cuidado, presença e aceitação.",
-      "Sucesso": "Há possivelmente crenças sobre merecimento ou medo da exposição.",
-      "Equilíbrio": "Pode haver necessidade de restaurar ritmos e cuidar melhor do seu tempo interno."
-    };
-
-    resultText.innerHTML = `
-      <h3>🌿 Seu mapa de crenças:</h3>
-      ${Object.entries(percentages)
-        .map(([area, perc]) => `<p><strong>${area}:</strong> ${perc}%</p>`)
+function showQuestion() {
+  const q = questions[currentQuestion];
+  quizEl.innerHTML = `
+    <div class="question">${q.text}</div>
+    <div class="options">
+      ${["Nunca", "Às vezes", "Frequentemente", "Sempre"]
+        .map(
+          (opt, i) => `
+          <div class="option" data-score="${i}" onclick="selectOption(this)">
+            ${opt}
+          </div>`
+        )
         .join("")}
-      <p><em>${reflexoes[maior[0]]}</em></p>
-      <p>🌙 Respire, observe e anote o que mais te tocou nas respostas.
-         O autoconhecimento começa quando paramos para escutar o que já está em nós.</p>
-    `;
-  }
+    </div>
+  `;
+}
 
-  // Inicializa o teste
-  buildQuiz();
-  submitButton.addEventListener("click", calculateResults);
+let selected = null;
+window.selectOption = (el) => {
+  document.querySelectorAll(".option").forEach((opt) => opt.classList.remove("selected"));
+  el.classList.add("selected");
+  selected = el.getAttribute("data-score");
+};
+
+nextButton.addEventListener("click", () => {
+  if (selected === null) return alert("Escolha uma opção para continuar.");
+  const archetype = questions[currentQuestion].archetype;
+  scores[archetype] += parseInt(selected);
+
+  selected = null;
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+    showQuestion();
+  } else {
+    showResults();
+  }
 });
+
+function showResults() {
+  quizEl.classList.add("hidden");
+  nextButton.classList.add("hidden");
+  resultEl.classList.remove("hidden");
+
+  const labels = Object.keys(scores);
+  const data = Object.values(scores);
+  const maxIndex = data.indexOf(Math.max(...data));
+  const dominant = labels[maxIndex];
+
+  new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Intensidade das Crenças",
+          data,
+          borderColor: "#5d3fd3",
+          backgroundColor: "rgba(93,63,211,0.3)",
+        },
+      ],
+    },
+    options: {
+      scales: { r: { beginAtZero: true, max: 9, ticks: { stepSize: 3 } } },
+    },
+  });
+
+  const reflections = {
+    "O Pacificador": "Você tende a evitar conflitos, sacrificando sua voz. O convite é honrar sua verdade, mesmo que ela desagrade.",
+    "O Salvador": "Sua compaixão é profunda, mas pode se tornar fardo. Amar também é permitir que o outro caminhe por si.",
+    "Ferida da Bruxa": "Sua força incomoda quem não a reconhece em si. Expresse-a com amor — é dom, não ameaça.",
+    "Fardo do Controle": "O peso que carrega não é todo seu. Soltar não é perder — é confiar no fluxo da vida.",
+    "Ferida do Amor Condicional": "Você não precisa ser desejada para ser amada. O amor real nasce quando você se vê inteira.",
+    "Carência de Valor": "Você é mais do que o que oferece. O simples fato de existir já tem valor.",
+    "Vulnerabilidade Negada": "A couraça te protege, mas também te isola. Mostrar-se é permitir o encontro.",
+    "Independência Punida": "Ser autêntica não te faz indesejável. É na liberdade que o amor se torna escolha, não necessidade.",
+  };
+
+  resultText.innerHTML = `
+    <strong>${dominant}</strong> é o arquétipo/ferida mais ativado(a) neste momento.<br><br>
+    ${reflections[dominant]}
+  `;
+}
+
+showQuestion();
