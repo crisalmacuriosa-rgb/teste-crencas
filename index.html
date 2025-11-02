@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Teste de Crenças 4.3 — O Mapa das Feridas e Arquétipos</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js" defer></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teste de Crenças 4.4 — Espelhos da Alma</title>
 
-  <body>
-    <div class="container">
-      <h1>🜂 Teste de Crenças 4.3</h1>
-      <p class="intro">
-        Descubra quais feridas e arquétipos moldam suas crenças mais profundas.
-        Responda com sinceridade, sentindo cada pergunta como um espelho simbólico.
-      </p>
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css" />
 
-      <div id="quiz"></div>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-      <button id="nextButton">Próxima</button>
+  <!-- Script principal -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🜂 Teste de Crenças 4.4</h1>
+      <p class="subtitle">Espelhos da Alma — um mergulho simbólico nas forças e feridas que moldam quem somos</p>
+    </header>
 
-      <div id="result" class="hidden">
-        <h2>🌕 Seu Mapa Simbólico</h2>
-        <canvas id="resultChart"></canvas>
-        <p id="resultText"></p>
-      </div>
-    </div>
-  </body>
+    <main id="quiz-container">
+      <!-- As perguntas serão inseridas dinamicamente pelo script.js -->
+    </main>
+
+    <section id="result-container" class="hidden">
+      <h2>Seu Mapa de Crenças</h2>
+      <canvas id="resultChart"></canvas>
+      <div id="result-text"></div>
+      <button id="restart-btn" class="btn">Refazer o Teste</button>
+    </section>
+
+    <footer>
+      <p>Versão 4.4 • Desenvolvido com 🌙 por Crisalma Curiosa</p>
+    </footer>
+  </div>
+</body>
 </html>
