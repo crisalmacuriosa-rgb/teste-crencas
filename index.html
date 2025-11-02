@@ -3,37 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Teste de Crenças 4.4 — Espelhos da Alma</title>
-
-  <!-- Estilos -->
+  <title>Teste de Crenças — Espelhos da Alma 4.4.1</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Script principal -->
   <script src="script.js" defer></script>
 </head>
+
 <body>
   <div class="container">
     <header>
-      <h1>🜂 Teste de Crenças 4.4</h1>
-      <p class="subtitle">Espelhos da Alma — um mergulho simbólico nas forças e feridas que moldam quem somos</p>
+      <h1>🪞 Teste de Crenças — Espelhos da Alma</h1>
+      <p class="subtitle">
+        Um caminho simbólico de autoconhecimento.  
+        Responda com sinceridade — o espelho reflete o que a alma deseja mostrar.
+      </p>
     </header>
 
-    <main id="quiz-container">
-      <!-- As perguntas serão inseridas dinamicamente pelo script.js -->
+    <!-- QUIZ -->
+    <main id="quiz-container" class="fade-in">
+      <h2>Carregando perguntas...</h2>
     </main>
 
-    <section id="result-container" class="hidden">
-      <h2>Seu Mapa de Crenças</h2>
+    <!-- RESULTADOS -->
+    <section id="result-container" class="hidden fade-in">
       <canvas id="resultChart"></canvas>
-      <div id="result-text"></div>
-      <button id="restart-btn" class="btn">Refazer o Teste</button>
+      <div id="result-text" class="result-text"></div>
+      <button id="restart-btn" class="btn">Refazer o teste</button>
     </section>
 
     <footer>
-      <p>Versão 4.4 • Desenvolvido com 🌙 por Crisalma Curiosa</p>
+      <p>Versão 4.4.1 — © 2025 Espelhos da Alma</p>
     </footer>
   </div>
 </body>
