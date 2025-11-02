@@ -3,38 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Teste de Crenças 4.4 — Espelhos da Alma</title>
-
-  <!-- Estilos -->
+  <title>Δ Teste de Crenças 4.4</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Script principal -->
   <script src="script.js" defer></script>
 </head>
+
 <body>
-  <div class="container">
-    <header>
-      <h1>🜂 Teste de Crenças 4.4</h1>
+  <main class="container">
+    <section class="intro-card">
+      <h1>Δ Teste de Crenças 4.4</h1>
       <p class="subtitle">Espelhos da Alma — um mergulho simbólico nas forças e feridas que moldam quem somos</p>
-    </header>
-
-    <main id="quiz-container">
-      <!-- As perguntas serão inseridas dinamicamente pelo script.js -->
-    </main>
-
-    <section id="result-container" class="hidden">
-      <h2>Seu Mapa de Crenças</h2>
-      <canvas id="resultChart"></canvas>
-      <div id="result-text"></div>
-      <button id="restart-btn" class="btn">Refazer o Teste</button>
+      <p class="author">Versão 4.4 • Desenvolvido com 🌙 por Crisalma Curiosa</p>
     </section>
 
-    <footer>
-      <p>Versão 4.4 • Desenvolvido com 🌙 por Crisalma Curiosa</p>
-    </footer>
-  </div>
+    <section class="instructions">
+      <p>
+        Respire. O que você está prestes a descobrir é um reflexo, não um julgamento.
+        Cada resposta é um espelho que te aproxima de si mesmo.
+      </p>
+      <p>
+        Responda com sinceridade — não para se definir, mas para se perceber.
+      </p>
+    </section>
+
+    <section id="test-section" class="test-section hidden">
+      <div id="question-container">
+        <h2 id="question-title"></h2>
+        <div id="options"></div>
+      </div>
+      <button id="next-btn" class="button">Próxima</button>
+    </section>
+
+    <section id="result-section" class="result-section hidden">
+      <h2>✨ Espelho de Consciência</h2>
+      <p class="reflection-intro">
+        Cada porcentagem abaixo reflete áreas da sua vida que pedem escuta, não julgamento.
+        O que mais vibra em você talvez seja o que mais quer ser compreendido.
+      </p>
+
+      <canvas id="beliefChart" width="400" height="400"></canvas>
+
+      <div id="reflection-text" class="reflection-text"></div>
+      <button id="restart-btn" class="button">Recomeçar</button>
+    </section>
+  </main>
 </body>
 </html>
