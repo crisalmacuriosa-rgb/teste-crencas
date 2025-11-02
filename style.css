@@ -1,128 +1,94 @@
 body {
-  font-family: 'Poppins', sans-serif;
-  background: #f5f8fa;
-  margin: 0;
-  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, #e9e4f0, #d3cce3);
   color: #333;
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
 }
 
 .container {
-  max-width: 700px;
-  background: #fff;
-  padding: 30px;
-  margin-top: 40px;
+  background: #ffffffd8;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 1.2s ease;
 }
 
 h1 {
-  text-align: center;
-  color: #1a365d;
+  color: #5d3fd3;
+  margin-bottom: 10px;
 }
 
 .intro {
-  text-align: center;
-  margin-bottom: 30px;
+  font-size: 1rem;
   color: #555;
-}
-
-.question {
   margin-bottom: 20px;
 }
 
-.question h3 {
-  color: #1a365d;
+.question {
+  margin-bottom: 25px;
+  font-weight: 500;
 }
 
-/* 🔹 Opções de resposta */
 .options {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-
-.options label {
-  display: flex;
+  gap: 10px;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: #eef3f8;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+}
+
+.option {
+  background: #f0f0ff;
   border: 2px solid transparent;
-}
-
-.options label:hover {
-  background: #d9e8ff;
-  transform: scale(1.01);
-}
-
-/* 🔸 Radio escondido mas funcional */
-.options input[type="radio"] {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #2563eb;
-  border-radius: 50%;
-  outline: none;
-  cursor: pointer;
-  position: relative;
-}
-
-/* 🔸 Quando marcado, preenche o círculo */
-.options input[type="radio"]:checked::before {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  top: 3px;
-  left: 3px;
-  border-radius: 50%;
-  background: #2563eb;
-}
-
-/* 🔹 Destaca visualmente a opção selecionada */
-.options input[type="radio"]:checked + span,
-.options label:has(input[type="radio"]:checked) {
-  background: #bfdbfe;
-  border-color: #2563eb;
-}
-
-/* Botão */
-#submit {
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
   border-radius: 10px;
+  padding: 10px 20px;
   cursor: pointer;
-  display: block;
-  margin: 30px auto;
+  width: 80%;
+  transition: 0.3s;
 }
 
-#submit:hover {
-  background: #1e40af;
+.option:hover {
+  background: #e2dbff;
+}
+
+.option.selected {
+  border-color: #5d3fd3;
+  background: #dcd6ff;
+  font-weight: bold;
+}
+
+button {
+  background: #5d3fd3;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #4a2fc2;
 }
 
 .hidden {
   display: none;
 }
 
-#result {
-  text-align: center;
-}
-
-#chart {
-  margin: 30px auto;
-  display: block;
-}
-
-#resultText {
+canvas {
+  max-width: 100%;
   margin-top: 20px;
-  font-size: 1.1em;
-  line-height: 1.6;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
