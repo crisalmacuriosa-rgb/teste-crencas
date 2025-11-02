@@ -1,259 +1,164 @@
-/* ======================================
-   Teste de Crenças 4.4 — Espelhos da Alma
-   ====================================== */
+// script.js – Teste de Crenças 4.5: Mapas das Crenças e Arquétipos Internos
 
-const quizContainer = document.getElementById("quiz-container");
-const resultContainer = document.getElementById("result-container");
-const resultText = document.getElementById("result-text");
-const restartBtn = document.getElementById("restart-btn");
+// Frase-portal inicial
+const introText = "Respire. O que você está prestes a descobrir é um reflexo, não um julgamento. Cada resposta é um espelho que te aproxima de si mesmo.";
 
-// ============================
-// ARQUÉTIPOS E PERGUNTAS
-// ============================
+// Arquétipos e perguntas
 const archetypes = {
   "O Pacificador": [
     "Evito conflitos mesmo quando algo me incomoda.",
-    "Prefiro ceder do que causar desconforto.",
-    "Guardo o que sinto para manter a paz."
+    "Tenho dificuldade em dizer 'não' por medo de desagradar.",
+    "Costumo ceder para manter a harmonia, mesmo me sentindo injustiçado(a)."
   ],
   "O Salvador": [
-    "Sinto que é meu dever ajudar todos ao redor.",
-    "Me culpo quando não consigo resolver os problemas dos outros.",
-    "Às vezes me esqueço de mim tentando cuidar dos outros."
+    "Sinto que preciso ajudar os outros para ser valorizado(a).",
+    "Carrego a dor alheia como se fosse minha.",
+    "Sinto culpa quando coloco minhas necessidades em primeiro lugar."
   ],
-  "O Autoanulador": [
-    "Tenho dificuldade em dizer 'não'.",
-    "Coloco as necessidades dos outros acima das minhas.",
-    "Sinto culpa ao priorizar meu próprio bem-estar."
+  "O Controlador": [
+    "Sinto ansiedade quando não tenho o controle das situações.",
+    "Acredito que, se eu não cuidar de tudo, algo dará errado.",
+    "Tenho dificuldade em confiar no ritmo e nas decisões dos outros."
   ],
-  "A Ferida da Bruxa": [
-    "Sinto medo de ser julgada ou punida por me expressar.",
-    "Já escondi minha força ou sabedoria para não incomodar.",
-    "Sinto que, se eu for verdadeira, posso ser rejeitada."
-  ],
-  "A Ferida do Amor Condicional": [
-    "Sinto que preciso merecer o amor das pessoas.",
-    "Quando erro, temo deixar de ser amado(a).",
-    "Faço de tudo para não decepcionar quem amo."
-  ],
-  "A Carência de Valor": [
-    "Duvido do meu próprio merecimento.",
-    "Comparo-me constantemente com os outros.",
-    "Sinto que nunca sou bom o bastante."
-  ],
-  "A Vulnerabilidade Negada": [
-    "Tenho dificuldade em pedir ajuda.",
-    "Evito mostrar fraqueza ou emoção.",
-    "Acredito que ser forte é não demonstrar dor."
-  ],
-  "A Independência Punida": [
-    "Sinto culpa quando escolho por mim mesmo(a).",
-    "Temo ser vista como egoísta por ser independente.",
-    "Acredito que se eu for autônomo(a), serei rejeitado(a)."
-  ],
-  "O Mártir": [
-    "Tenho dificuldade de aceitar prazer sem culpa.",
-    "Acredito que o sofrimento me torna melhor.",
-    "Sinto que preciso pagar um preço por cada conquista."
-  ],
-  "O Camaleão": [
-    "Adapto meu jeito para agradar quem está comigo.",
-    "Evito mostrar minhas opiniões verdadeiras.",
-    "Às vezes nem sei quem sou sem o olhar dos outros."
-  ],
-  "O Guardião da Ordem": [
-    "Fico ansioso(a) quando as coisas fogem do planejado.",
-    "Tenho dificuldade em lidar com o improviso.",
-    "Busco controlar o ambiente para evitar surpresas."
-  ],
-  "O Herdeiro da Dor": [
-    "Repito padrões familiares mesmo sem querer.",
-    "Sinto que não posso ser mais feliz que meus pais.",
-    "Carrego dores que não sei explicar."
-  ],
-  "O Guerreiro Ferido": [
-    "Estou sempre em modo 'batalha', mesmo sem motivo.",
-    "A paz me deixa desconfortável.",
-    "Sinto que, se relaxar, algo ruim vai acontecer."
-  ],
-  "O Observador Distante": [
-    "Analiso muito o que sinto, mas raramente me deixo sentir.",
-    "Prefiro entender do que me vulnerabilizar.",
-    "Às vezes me sinto um espectador da minha vida."
-  ],
-  "O Guardião do Limiar": [
-    "Mesmo insatisfeito(a), tenho medo de mudar.",
-    "Adio decisões esperando o 'momento certo'.",
-    "Saboto-me para não sair da zona de conforto."
-  ],
-  "O Julgador Interno": [
-    "Sou muito crítico comigo mesmo.",
-    "Me comparo com os outros com frequência.",
-    "Tenho dificuldade em reconhecer minhas conquistas."
-  ],
-  "O Sonhador Estagnado": [
-    "Tenho muitas ideias, mas não as executo.",
-    "Falo sobre mudanças, mas raramente ajo.",
-    "Temo fracassar e confirmar minhas dúvidas."
-  ],
-  "O Guardião da Harmonia": [
-    "Evito discutir para manter a paz.",
-    "Fico desconfortável com emoções intensas.",
-    "Prefiro engolir a raiva do que magoar alguém."
-  ],
-  "O Carregador de Culpa": [
-    "Sinto-me responsável por tudo que dá errado.",
-    "Tenho dificuldade em me perdoar.",
-    "Assumo culpas que não são minhas."
-  ],
-  "O Silenciador da Alegria": [
-    "Tenho medo de mostrar felicidade e gerar inveja.",
-    "Disfarço minha alegria para não parecer arrogante.",
-    "Sinto que não posso ser 'muito feliz'."
-  ],
-  "O Medo de Confronto": [
-    "Evito expressar opiniões para não gerar atrito.",
-    "Prefiro ficar em silêncio mesmo quando discordo.",
-    "Sinto medo de que um conflito destrua o vínculo."
+  "O Ferido pelo Amor Condicional": [
+    "Acho que preciso ser perfeito(a) para ser amado(a).",
+    "Evito mostrar vulnerabilidade para não ser rejeitado(a).",
+    "Sinto que o amor vem apenas quando desempenho bem meus papéis."
   ],
   "O Invisível": [
-    "Sinto que passo despercebido(a) nas relações.",
-    "Tenho medo de ocupar espaço demais.",
-    "Às vezes prefiro ser ignorado do que rejeitado."
+    "Tenho medo de ocupar espaço e ser criticado(a).",
+    "Minhas ideias raramente são ouvidas.",
+    "Prefiro me calar a correr o risco de errar."
   ],
-  "O Controlador Disfarçado": [
-    "Tenho dificuldade em delegar.",
-    "Sinto necessidade de garantir que tudo saia certo.",
-    "Confio mais em mim do que nos outros."
+  "O Prisioneiro do Vínculo": [
+    "Tenho medo de ser deixado(a), então me esforço demais para agradar.",
+    "Sinto que não sei quem sou fora de uma relação.",
+    "Confundo presença com amor e silêncio com rejeição."
   ],
-  "O Refém do Passado": [
-    "Revivo constantemente lembranças dolorosas.",
-    "Tenho dificuldade em perdoar o que já passou.",
-    "Sinto que minha história me define."
+  "O Autoanulador": [
+    "Evito mostrar o que quero para não gerar atrito.",
+    "Costumo priorizar o bem-estar alheio acima do meu.",
+    "Sinto que expressar raiva é errado ou perigoso."
+  ],
+  "A Bruxa Ferida": [
+    "Sinto que minha força ou sensibilidade assustam as pessoas.",
+    "Tenho medo de ser julgada por ser autêntica.",
+    "Quando me destaco, sinto que serei atacada ou invejada."
+  ],
+  "O Independente Punido": [
+    "Acredito que, se eu for independente, serei rejeitado(a) ou explorado(a).",
+    "Tenho dificuldade em pedir ajuda, mesmo quando preciso.",
+    "Sinto que amar é perder liberdade."
+  ],
+  "O Carente de Valor": [
+    "Tenho dificuldade em reconhecer minhas qualidades.",
+    "Busco aprovação constante para me sentir seguro(a).",
+    "Sinto que nunca sou bom(a) o suficiente."
   ]
 };
 
-// ============================
-// LÓGICA DO QUIZ
-// ============================
-let currentQuestionIndex = 0;
+// Reflexões por arquétipo
+const reflections = {
+  "O Pacificador": "Você busca harmonia, mas às vezes à custa da própria voz. Aprender a se posicionar é um ato de amor próprio, não de confronto.",
+  "O Salvador": "Seu coração é generoso, mas cuidar de si também é um serviço ao mundo. Amor não é dívida, é presença.",
+  "O Controlador": "Sua necessidade de controle nasce do medo da perda. Confiar é permitir que a vida te surpreenda de forma gentil.",
+  "O Ferido pelo Amor Condicional": "Você aprendeu que amor precisa ser conquistado. A cura começa quando você percebe que já é digno sem precisar provar.",
+  "O Invisível": "O silêncio te protegeu por muito tempo, mas o mundo precisa ouvir sua voz. Visibilidade é vulnerabilidade — e também coragem.",
+  "O Prisioneiro do Vínculo": "Você confunde amor com sobrevivência emocional. O vínculo saudável nasce quando você aprende a permanecer inteiro, mesmo sozinho.",
+  "O Autoanulador": "Negar a si mesmo por amor é uma forma de abandono. Sua autenticidade é o maior presente que pode oferecer.",
+  "A Bruxa Ferida": "Sua força e sensibilidade não são perigosas — são dons. Quando você as assume, inspira outros a fazerem o mesmo.",
+  "O Independente Punido": "A independência não precisa excluir o afeto. Amar sem perder a si é a verdadeira liberdade.",
+  "O Carente de Valor": "A validação que procura fora nasce de um vazio que pede reconhecimento interno. Você já é suficiente, mesmo em silêncio."
+};
+
+// Exibição da frase-portal
+const intro = document.createElement("p");
+intro.textContent = introText;
+intro.classList.add("intro-text");
+document.body.prepend(intro);
+
+// Função principal
+const quizContainer = document.getElementById("quiz");
+const resultContainer = document.getElementById("result");
+const chartContainer = document.getElementById("chart");
+let currentQuestion = 0;
 let scores = {};
-const archetypeKeys = Object.keys(archetypes);
-let selectedAnswers = [];
+Object.keys(archetypes).forEach(k => scores[k] = 0);
 
-function renderQuestion() {
-  quizContainer.innerHTML = "";
+let questions = [];
+for (const [type, qs] of Object.entries(archetypes)) {
+  qs.forEach(q => questions.push({ type, text: q }));
+}
+questions = questions.sort(() => Math.random() - 0.5);
 
-  if (currentQuestionIndex >= archetypeKeys.length * 3) {
-    showResults();
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    showResult();
     return;
   }
 
-  const archetypeIndex = Math.floor(currentQuestionIndex / 3);
-  const questionIndex = currentQuestionIndex % 3;
-  const archetype = archetypeKeys[archetypeIndex];
-  const question = archetypes[archetype][questionIndex];
-
-  const questionEl = document.createElement("div");
-  questionEl.className = "fade-in";
-  questionEl.innerHTML = `
-    <h3 class="question">${question}</h3>
-    <div class="options">
-      <div class="option" data-value="1">Discordo totalmente</div>
-      <div class="option" data-value="2">Discordo</div>
-      <div class="option" data-value="3">Neutro</div>
-      <div class="option" data-value="4">Concordo</div>
-      <div class="option" data-value="5">Concordo totalmente</div>
+  const q = questions[currentQuestion];
+  quizContainer.innerHTML = `
+    <div class="question-card">
+      <h2>${q.text}</h2>
+      <div class="options">
+        ${[1, 2, 3, 4, 5].map(val => `
+          <label class="option">
+            <input type="radio" name="q${currentQuestion}" value="${val}">
+            ${val}
+          </label>`).join('')}
+      </div>
+      <button class="next-btn">Próxima</button>
     </div>
-    <button class="btn" id="next-btn">Próxima</button>
   `;
 
-  quizContainer.appendChild(questionEl);
-
-  const options = questionEl.querySelectorAll(".option");
-  let selectedValue = null;
-
-  options.forEach((opt) => {
-    opt.addEventListener("click", () => {
-      options.forEach((o) => o.classList.remove("selected"));
-      opt.classList.add("selected");
-      selectedValue = parseInt(opt.dataset.value);
-    });
-  });
-
-  const nextBtn = document.getElementById("next-btn");
-  nextBtn.addEventListener("click", () => {
-    if (!selectedValue) {
-      alert("Escolha uma opção antes de continuar.");
+  document.querySelector(".next-btn").addEventListener("click", () => {
+    const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+    if (!selected) {
+      alert("Por favor, selecione uma opção antes de continuar.");
       return;
     }
-
-    const archetype = archetypeKeys[archetypeIndex];
-    if (!scores[archetype]) scores[archetype] = 0;
-    scores[archetype] += selectedValue;
-
-    currentQuestionIndex++;
-    renderQuestion();
+    scores[q.type] += parseInt(selected.value);
+    currentQuestion++;
+    showQuestion();
   });
 }
 
-function showResults() {
-  quizContainer.classList.add("hidden");
-  resultContainer.classList.remove("hidden");
-
+function showResult() {
+  quizContainer.innerHTML = "";
   const labels = Object.keys(scores);
   const data = Object.values(scores);
 
-  // Normaliza
-  const maxScore = Math.max(...data);
-  const topArchetype = labels[data.indexOf(maxScore)];
+  const ctx = document.createElement("canvas");
+  chartContainer.innerHTML = "";
+  chartContainer.appendChild(ctx);
 
-  // Exibe gráfico
-  const ctx = document.getElementById("resultChart").getContext("2d");
   new Chart(ctx, {
-    type: "radar",
+    type: "pie",
     data: {
       labels,
-      datasets: [
-        {
-          label: "Força das Crenças",
-          data,
-          fill: true,
-          borderColor: "#b59ed9",
-          backgroundColor: "rgba(181,158,217,0.3)",
-          pointBackgroundColor: "#d4a657"
-        }
-      ]
+      datasets: [{
+        data,
+        backgroundColor: [
+          "#f4a261", "#e76f51", "#2a9d8f", "#264653", "#8ab17d",
+          "#b5838d", "#6d6875", "#ffb4a2", "#a8dadc", "#457b9d"
+        ]
+      }]
     },
     options: {
-      scales: {
-        r: {
-          beginAtZero: true,
-          max: Math.ceil(Math.max(...data)),
-          ticks: { display: false },
-          grid: { color: "rgba(0,0,0,0.1)" },
-          angleLines: { color: "rgba(0,0,0,0.1)" }
-        }
-      },
-      plugins: { legend: { display: false } }
+      plugins: {
+        legend: { position: "right" }
+      }
     }
   });
 
-  // Mensagem final simbólica
-  resultText.innerHTML = `
-    <h3>Seu arquétipo predominante: <strong>${topArchetype}</strong></h3>
-    <p>Essa força-ferida tem guiado parte do seu caminho. Reconhecê-la não é uma sentença — é um convite à consciência.</p>
-    <p><em>Quando olhamos o espelho interno com coragem, o reflexo deixa de ser prisão e se torna portal.</em></p>
+  const dominant = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+  const reflection = reflections[dominant];
+
+  resultContainer.innerHTML = `
+    <h2>Arquétipo em destaque: ${dominant}</h2>
+    <p class="reflection-text">${reflection}</p>
   `;
 }
 
-restartBtn.addEventListener("click", () => {
-  currentQuestionIndex = 0;
-  scores = {};
-  quizContainer.classList.remove("hidden");
-  resultContainer.classList.add("hidden");
-  renderQuestion();
-});
-
-// Iniciar quiz
-renderQuestion();
+showQuestion();
