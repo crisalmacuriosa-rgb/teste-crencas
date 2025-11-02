@@ -1,83 +1,177 @@
-body {
-  font-family: "Poppins", sans-serif;
-  background: radial-gradient(circle at center, #f9f7f7, #e0dede);
-  color: #333;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+/* ==============================
+   Teste de Crenças 4.4 - Estilo Simbólico
+   ============================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Quicksand:wght@400;600&display=swap');
+
+:root {
+  --fundo: #f9f6f3;
+  --dourado: #d4a657;
+  --lilas: #b59ed9;
+  --texto: #2e2b25;
+  --translucido: rgba(255, 255, 255, 0.7);
+  --sombra: rgba(0, 0, 0, 0.08);
 }
 
-.container {
-  max-width: 800px;
-  margin: auto;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
   padding: 2rem;
 }
 
+.container {
+  max-width: 700px;
+  width: 100%;
+  background: var(--translucido);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px var(--sombra);
+  padding: 2.5rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
 h1 {
+  font-family: 'Marcellus', serif;
   font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #444;
+  color: var(--lilas);
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 1rem;
+  color: #7b6a58;
+  margin-top: 0.5rem;
 }
 
-.instructions p {
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.question {
   font-size: 1.1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  font-family: 'Marcellus', serif;
+  color: #463f36;
 }
 
-.button {
-  background: #555;
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.option {
+  border: 1px solid var(--lilas);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.option:hover {
+  background: var(--lilas);
   color: white;
+}
+
+.option.selected {
+  background: var(--dourado);
+  color: white;
+  border-color: var(--dourado);
+  box-shadow: 0 0 10px var(--dourado);
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
   border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
+  background: var(--lilas);
+  color: white;
+  font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
 }
 
-.button:hover {
-  background: #222;
+.btn:hover {
+  background: var(--dourado);
+  transform: translateY(-2px);
 }
 
+#result-container {
+  text-align: center;
+}
+
+#resultChart {
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+#result-text {
+  margin-top: 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #4a4238;
+  text-align: justify;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #7a6b5a;
+  opacity: 0.8;
+}
+
+/* Animações suaves */
 .hidden {
   display: none;
 }
 
-.test-section {
-  margin-top: 2rem;
+.fade-in {
+  animation: fadeIn 1s ease forwards;
 }
 
-#options label {
-  display: block;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  background: #f4f4f4;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-#options label:hover {
-  background: #e8e8e8;
-}
-
-#options input[type="radio"] {
-  margin-right: 0.5rem;
-}
-
-.result-section {
-  margin-top: 2rem;
-}
-
-.reflection-text {
-  margin-top: 2rem;
-  font-style: italic;
-  line-height: 1.6;
-  color: #444;
+/* Responsivo */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+  .container {
+    padding: 1.5rem;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
 }
