@@ -65,44 +65,43 @@ function showResult() {
     counts[a] > counts[b] ? a : b
   );
 
+  let title = "";
   let message = "";
+
   switch (dominant) {
     case "dinheiro":
+      title = "💰 Crença sobre Dinheiro";
       message =
-        "Parece que suas crenças sobre dinheiro ainda carregam escassez. Reflita sobre o que o dinheiro representa pra você e como ele pode ser uma ferramenta de expansão.";
+        "Você pode carregar crenças de escassez ou limitação financeira. Reflita sobre o que o dinheiro representa para você e como ele pode ser uma ferramenta de expansão e liberdade.";
       break;
     case "amor":
+      title = "💞 Crença sobre Amor";
       message =
-        "Você pode ter crenças ligadas a relacionamentos desafiadores. O amor começa na forma como você se acolhe e se permite ser vulnerável.";
+        "Talvez existam padrões de dificuldade em se sentir plenamente amado(a). O amor começa na forma como você se acolhe e se permite ser autêntico(a).";
       break;
     case "autoestima":
+      title = "🌟 Crença sobre Autoestima";
       message =
-        "Há um convite para fortalecer sua autoestima. Reconheça seu valor, mesmo sem precisar provar nada a ninguém.";
+        "Há um convite para reconhecer e valorizar quem você é. Lembre-se: o seu valor não depende de desempenho, e sim da sua essência.";
       break;
     case "identidade":
+      title = "🪞 Crença sobre Identidade";
       message =
-        "Talvez seja hora de se reconectar com quem você é de verdade. Sua identidade é um espaço em constante evolução — e isso é lindo.";
+        "Talvez esteja em um momento de redescobrir quem você é e o que faz sentido pra sua jornada. Sua identidade é viva, e isso é lindo.";
+      break;
+    case "equilíbrio":
+      title = "⚖️ Crença de Equilíbrio";
+      message =
+        "Você demonstra equilíbrio entre diferentes áreas da vida. Continue se observando com gentileza e curiosidade — esse é um bom sinal de autoconhecimento.";
       break;
     default:
+      title = "🌱 Autoconhecimento em expansão";
       message =
-        "Você demonstra equilíbrio entre várias áreas da vida. Continue se observando com gentileza e curiosidade.";
+        "Suas respostas mostram um olhar diversificado. Continue explorando suas crenças e emoções com abertura e leveza.";
   }
 
   quiz.classList.add("hidden");
   nextBtn.classList.add("hidden");
   resultDiv.classList.remove("hidden");
-  resultDiv.innerHTML = `<h2>Seu resultado:</h2><p>${message}</p>`;
+  resultDiv.innerHTML = `<h2>${title}</h2><p>${message}</p>`;
 }
-
-nextBtn.addEventListener("click", () => {
-  currentQuestion++;
-  nextBtn.classList.add("hidden");
-
-  if (currentQuestion < quizData.length) {
-    loadQuestion();
-  } else {
-    showResult();
-  }
-});
-
-loadQuestion();
