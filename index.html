@@ -11,25 +11,28 @@
 
 <body>
   <main class="container">
-    <section class="intro-card" id="intro">
+    <section class="intro-card">
       <h1>Δ Teste de Crenças 4.4</h1>
       <p class="subtitle">Espelhos da Alma — um mergulho simbólico nas forças e feridas que moldam quem somos</p>
       <p class="author">Versão 4.4 • Desenvolvido com 🌙 por Crisalma Curiosa</p>
-      <button id="start-btn" class="button">Começar o Teste</button>
+    </section>
+
+    <section class="instructions">
+      <p>Respire. O que você está prestes a descobrir é um reflexo, não um julgamento.<br>
+         Cada resposta é um espelho que te aproxima de si mesmo.</p>
+      <button id="start-btn" class="button">Iniciar Teste</button>
     </section>
 
     <section id="test-section" class="test-section hidden">
-      <h2 id="question-title"></h2>
-      <div id="options"></div>
+      <div id="question-container">
+        <h2 id="question-title"></h2>
+        <div id="options"></div>
+      </div>
       <button id="next-btn" class="button">Próxima</button>
     </section>
 
     <section id="result-section" class="result-section hidden">
-      <h2>✨ Espelho de Consciência</h2>
-      <p class="reflection-intro">
-        Cada porcentagem abaixo reflete áreas da sua vida que pedem escuta, não julgamento.
-        O que mais vibra em você talvez seja o que mais quer ser compreendido.
-      </p>
+      <h2>✨ Mapa das Crenças e Arquétipos Internos</h2>
       <canvas id="beliefChart" width="400" height="400"></canvas>
       <div id="reflection-text" class="reflection-text"></div>
       <button id="restart-btn" class="button">Recomeçar</button>
