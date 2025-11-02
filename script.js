@@ -1,48 +1,153 @@
-// === Dados do teste ===
+// === TESTE DE CRENÇAS PROFUNDO ===
+// Áreas: dinheiro, amor, autoestima, identidade, propósito, espiritualidade, corpo, sucesso
+
 const quizData = [
+  // DINHEIRO
   {
-    question: "Quando pensa em dinheiro, qual frase mais combina com você?",
+    question: "Quando pensa em dinheiro, o que sente mais forte?",
     options: [
-      { text: "Dinheiro é difícil de conseguir", type: "dinheiro" },
-      { text: "Dinheiro vem e vai, e está tudo bem", type: "equilíbrio" },
-      { text: "Eu mereço abundância financeira", type: "autoestima" },
+      { text: "Medo de faltar", type: "dinheiro" },
+      { text: "Gratidão e fluidez", type: "equilibrio" },
+      { text: "Vergonha de ter ou querer", type: "autoestima" },
     ],
   },
   {
-    question: "Sobre o amor, você acredita que...",
+    question: "Quando alguém prospera, o que vem à mente?",
     options: [
-      { text: "Preciso me esforçar muito para ser amado(a)", type: "autoestima" },
-      { text: "O amor acontece quando sou eu mesmo(a)", type: "identidade" },
-      { text: "Relacionamentos são sempre complicados", type: "amor" },
+      { text: "Sortudo, teve oportunidades", type: "dinheiro" },
+      { text: "Que bom, é inspiração pra mim", type: "equilibrio" },
+      { text: "Nunca seria possível pra mim", type: "autoestima" },
+    ],
+  },
+
+  // AMOR
+  {
+    question: "Sobre o amor, o que mais te descreve?",
+    options: [
+      { text: "Preciso me adaptar para ser amado(a)", type: "amor" },
+      { text: "Posso ser amado(a) sendo quem sou", type: "equilibrio" },
+      { text: "Amar é sofrer, sempre foi assim", type: "amor" },
     ],
   },
   {
-    question: "Quando olha pra si mesmo(a), o que sente?",
+    question: "Quando pensa em se relacionar, o que sente?",
     options: [
-      { text: "Que ainda não sou bom o suficiente", type: "autoestima" },
-      { text: "Que tenho muito valor, mesmo com falhas", type: "equilíbrio" },
-      { text: "Que às vezes nem sei quem sou de verdade", type: "identidade" },
+      { text: "Ansiedade ou medo de rejeição", type: "autoestima" },
+      { text: "Calma e desejo de compartilhar", type: "equilibrio" },
+      { text: "Incerteza sobre quem sou de verdade", type: "identidade" },
+    ],
+  },
+
+  // AUTOESTIMA
+  {
+    question: "O que mais define sua relação com você mesmo(a)?",
+    options: [
+      { text: "Sou muito exigente comigo", type: "autoestima" },
+      { text: "Aceito minhas imperfeições", type: "equilibrio" },
+      { text: "Me comparo com os outros frequentemente", type: "autoestima" },
     ],
   },
   {
-    question: "Quando pensa em propósito de vida, o que sente?",
+    question: "Como reage ao receber elogios?",
     options: [
-      { text: "Ainda não sei qual é o meu caminho", type: "identidade" },
-      { text: "Acredito que estou no rumo certo", type: "equilíbrio" },
-      { text: "Meu propósito é servir e crescer", type: "autoestima" },
+      { text: "Fico desconfortável, não sei lidar", type: "autoestima" },
+      { text: "Agradeço de coração, sinto merecimento", type: "equilibrio" },
+      { text: "Duvido, acho exagero", type: "autoestima" },
+    ],
+  },
+
+  // IDENTIDADE
+  {
+    question: "O que mais te desafia em se expressar?",
+    options: [
+      { text: "Medo de não ser compreendido(a)", type: "identidade" },
+      { text: "Vergonha de ser diferente", type: "autoestima" },
+      { text: "Nada, me sinto livre para ser", type: "equilibrio" },
     ],
   },
   {
-    question: "Como você lida com desafios e fracassos?",
+    question: "Quando erra, o que pensa?",
     options: [
-      { text: "Costumo me culpar e pensar que falhei", type: "autoestima" },
-      { text: "Entendo que erros fazem parte do processo", type: "equilíbrio" },
-      { text: "Fico perdido(a), sem saber quem sou depois disso", type: "identidade" },
+      { text: "Falhei, não sou bom o bastante", type: "autoestima" },
+      { text: "Tudo é aprendizado", type: "equilibrio" },
+      { text: "Quem sou eu sem acertos?", type: "identidade" },
+    ],
+  },
+
+  // PROPÓSITO
+  {
+    question: "Quando pensa em propósito, o que sente?",
+    options: [
+      { text: "Ainda não sei qual é o meu", type: "identidade" },
+      { text: "Sei o que me move e sigo com leveza", type: "equilibrio" },
+      { text: "Sinto que minha vida não tem direção", type: "proposito" },
+    ],
+  },
+  {
+    question: "O que te motiva a seguir em frente?",
+    options: [
+      { text: "Dever e obrigação", type: "proposito" },
+      { text: "Desejo de crescer e servir", type: "espiritualidade" },
+      { text: "Alegria de viver o presente", type: "equilibrio" },
+    ],
+  },
+
+  // ESPIRITUALIDADE
+  {
+    question: "Qual frase mais ecoa em você?",
+    options: [
+      { text: "Sinto-me desconectado de algo maior", type: "espiritualidade" },
+      { text: "Tudo está interligado, há um sentido", type: "equilibrio" },
+      { text: "A vida é um acaso, sem plano", type: "identidade" },
+    ],
+  },
+  {
+    question: "Quando pensa no divino, o que sente?",
+    options: [
+      { text: "Distância, culpa ou medo", type: "espiritualidade" },
+      { text: "Proximidade, amor e unidade", type: "equilibrio" },
+      { text: "Dúvida constante", type: "identidade" },
+    ],
+  },
+
+  // CORPO
+  {
+    question: "Como você percebe seu corpo?",
+    options: [
+      { text: "Como algo a ser melhorado", type: "corpo" },
+      { text: "Como meu lar e companheiro", type: "equilibrio" },
+      { text: "Como algo que me limita", type: "autoestima" },
+    ],
+  },
+  {
+    question: "Como lida com o descanso?",
+    options: [
+      { text: "Culpa por parar", type: "corpo" },
+      { text: "Reconheço a importância do repouso", type: "equilibrio" },
+      { text: "Sinto-me improdutivo ao descansar", type: "autoestima" },
+    ],
+  },
+
+  // SUCESSO
+  {
+    question: "O que é sucesso pra você?",
+    options: [
+      { text: "Reconhecimento e estabilidade", type: "sucesso" },
+      { text: "Expressar meu potencial com propósito", type: "equilibrio" },
+      { text: "Nunca é suficiente, sempre falta algo", type: "autoestima" },
+    ],
+  },
+  {
+    question: "Quando algo dá errado, o que pensa?",
+    options: [
+      { text: "Eu estraguei tudo", type: "autoestima" },
+      { text: "Tudo tem um motivo e aprendizado", type: "equilibrio" },
+      { text: "Talvez sucesso não seja pra mim", type: "sucesso" },
     ],
   },
 ];
 
-// === Variáveis de controle ===
+// === VARIÁVEIS DE CONTROLE ===
 let currentQuestion = 0;
 let answers = [];
 
@@ -50,7 +155,7 @@ const quiz = document.getElementById("quiz");
 const nextBtn = document.getElementById("nextBtn");
 const resultDiv = document.getElementById("result");
 
-// === Funções ===
+// === FUNÇÕES ===
 function loadQuestion() {
   const q = quizData[currentQuestion];
   quiz.innerHTML = `
@@ -81,67 +186,46 @@ function showResult() {
   }, {});
 
   const total = answers.length;
-  const dominant = Object.keys(counts).reduce((a, b) =>
-    counts[a] > counts[b] ? a : b
-  );
 
-  let title = "";
-  let message = "";
+  // === CÁLCULO DE PERCENTUAIS ===
+  const areas = [
+    "dinheiro",
+    "amor",
+    "autoestima",
+    "identidade",
+    "proposito",
+    "espiritualidade",
+    "corpo",
+    "sucesso",
+    "equilibrio",
+  ];
 
-  switch (dominant) {
-    case "dinheiro":
-      title = "💰 Crença sobre Dinheiro";
-      message =
-        "Você pode carregar crenças de escassez ou limitação financeira. Reflita sobre o que o dinheiro representa para você e como ele pode ser uma ferramenta de expansão e liberdade.";
-      break;
-    case "amor":
-      title = "💞 Crença sobre Amor";
-      message =
-        "Talvez existam padrões de dificuldade em se sentir plenamente amado(a). O amor começa na forma como você se acolhe e se permite ser autêntico(a).";
-      break;
-    case "autoestima":
-      title = "🌟 Crença sobre Autoestima";
-      message =
-        "Há um convite para reconhecer e valorizar quem você é. Lembre-se: o seu valor não depende de desempenho, e sim da sua essência.";
-      break;
-    case "identidade":
-      title = "🪞 Crença sobre Identidade";
-      message =
-        "Talvez esteja em um momento de redescobrir quem você é e o que faz sentido pra sua jornada. Sua identidade é viva, e isso é lindo.";
-      break;
-    case "equilíbrio":
-      title = "⚖️ Crença de Equilíbrio";
-      message =
-        "Você demonstra equilíbrio entre diferentes áreas da vida. Continue se observando com gentileza e curiosidade — esse é um bom sinal de autoconhecimento.";
-      break;
-    default:
-      title = "🌱 Autoconhecimento em Expansão";
-      message =
-        "Suas respostas mostram um olhar diversificado. Continue explorando suas crenças e emoções com abertura e leveza.";
-  }
-
-  // === Criação do relatório de percentuais ===
-  let report = "<h3>Seu equilíbrio entre áreas:</h3><ul>";
-  const areas = ["dinheiro", "amor", "autoestima", "identidade", "equilíbrio"];
+  let report = "<h3>🌿 Seu mapa de crenças:</h3><ul>";
   areas.forEach((a) => {
     const percent = ((counts[a] || 0) / total * 100).toFixed(0);
     report += `<li>${a.charAt(0).toUpperCase() + a.slice(1)}: ${percent}%</li>`;
   });
   report += "</ul>";
 
-  // === Exibir resultado final ===
+  // === RESULTADO REFLEXIVO ===
   quiz.classList.add("hidden");
   nextBtn.classList.add("hidden");
   resultDiv.classList.remove("hidden");
+
   resultDiv.innerHTML = `
-    <h2>${title}</h2>
-    <p>${message}</p>
+    <h2>✨ Espelho de Consciência</h2>
+    <p>Esses percentuais não são respostas, mas reflexos.  
+    Observe as áreas com maior e menor presença.  
+    Onde há intensidade, pode haver crenças mais ativas — e também o chamado à cura.</p>
     <div class="report">${report}</div>
-    <p style="margin-top:20px; font-style:italic;">✨ Reflita sobre o que mais tocou você nas respostas. A transformação começa pela consciência.</p>
+    <p style="margin-top:20px; font-style:italic;">
+      🌙 Respire, observe e anote o que mais te tocou nas respostas.  
+      O autoconhecimento começa quando paramos para escutar o que já está em nós.
+    </p>
   `;
 }
 
-// === Navegação ===
+// === NAVEGAÇÃO ===
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
   nextBtn.classList.add("hidden");
