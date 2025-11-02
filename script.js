@@ -1,163 +1,126 @@
+const quizContainer = document.getElementById("quiz");
+const submitButton = document.getElementById("submit");
+const resultContainer = document.getElementById("result");
+const resultText = document.getElementById("resultText");
+
 const questions = [
   {
-    area: "Autoestima e Merecimento",
-    question: "Com que frequência você sente que precisa provar seu valor aos outros?",
+    area: "Dinheiro",
+    text: "Quando penso em prosperar financeiramente, sinto culpa ou medo?",
   },
   {
-    area: "Amor e Relacionamentos",
-    question: "Você teme que, se for totalmente autêntico, possa ser rejeitado?",
+    area: "Amor",
+    text: "Tenho dificuldade em confiar que sou digno(a) de amor?",
   },
   {
-    area: "Prosperidade e Dinheiro",
-    question: "Você se sente culpado quando ganha mais do que outras pessoas?",
+    area: "Autoestima",
+    text: "Costumo me comparar com os outros e me sentir inferior?",
   },
   {
-    area: "Propósito e Realização",
-    question: "Você sente que está vivendo aquém do seu verdadeiro potencial?",
+    area: "Identidade",
+    text: "Sinto que preciso agradar para ser aceito(a)?",
   },
   {
-    area: "Espiritualidade e Conexão",
-    question: "Você acredita que precisa 'merecer' a ajuda do universo?",
+    area: "Propósito",
+    text: "Sinto que minha vida não tem uma direção clara?",
   },
   {
-    area: "Corpo e Saúde",
-    question: "Você sente culpa ao descansar ou cuidar de si mesmo?",
+    area: "Espiritualidade",
+    text: "Sinto-me desconectado(a) de algo maior ou sem fé?",
   },
   {
-    area: "Culpa e Perdão",
-    question: "Você se cobra por erros antigos mesmo já tendo aprendido com eles?",
+    area: "Corpo",
+    text: "Tenho dificuldade em aceitar ou cuidar do meu corpo?",
   },
   {
-    area: "Medo e Controle",
-    question: "Você tem dificuldade em confiar no fluxo da vida?",
+    area: "Sucesso",
+    text: "Temo que o sucesso traga rejeição ou solidão?",
   },
   {
-    area: "Rejeição e Pertencimento",
-    question: "Você sente que precisa se adaptar para ser aceito?",
-  },
-  {
-    area: "Sucesso e Visibilidade",
-    question: "Você teme ser julgado se brilhar demais?",
-  },
+    area: "Equilíbrio",
+    text: "Sinto que estou sempre em desequilíbrio entre trabalho e descanso?",
+  }
 ];
 
-let currentIndex = 0;
-let answers = {};
-
-const quizContainer = document.getElementById("quiz-container");
-const nextBtn = document.getElementById("next-btn");
-const resultDiv = document.getElementById("result");
-
-function renderQuestion(index) {
-  const q = questions[index];
-  quizContainer.innerHTML = `
-    <div class="question">${q.question}</div>
-    <div class="options">
-      ${["Nunca", "Raramente", "Às vezes", "Frequentemente", "Sempre"]
-        .map(
-          (opt, i) => `
-        <div class="option" data-value="${i + 1}">
-          ${opt}
-        </div>`
-        )
-        .join("")}
+function buildQuiz() {
+  quizContainer.innerHTML = questions.map((q, index) => `
+    <div class="question">
+      <h3>${index + 1}. ${q.text}</h3>
+      <div class="options">
+        <label><input type="radio" name="q${index}" value="1"> Nunca</label>
+        <label><input type="radio" name="q${index}" value="2"> Raramente</label>
+        <label><input type="radio" name="q${index}" value="3"> Às vezes</label>
+        <label><input type="radio" name="q${index}" value="4"> Frequentemente</label>
+        <label><input type="radio" name="q${index}" value="5"> Sempre</label>
+      </div>
     </div>
-  `;
-
-  document.querySelectorAll(".option").forEach((opt) => {
-    opt.addEventListener("click", () => {
-      document.querySelectorAll(".option").forEach((o) => o.classList.remove("selected"));
-      opt.classList.add("selected");
-      answers[q.area] = parseInt(opt.dataset.value);
-      nextBtn.classList.remove("hidden");
-    });
-  });
+  `).join("");
 }
 
-nextBtn.addEventListener("click", () => {
-  currentIndex++;
-  if (currentIndex < questions.length) {
-    renderQuestion(currentIndex);
-    nextBtn.classList.add("hidden");
-  } else {
-    showResult();
+function calculateResults() {
+  const scores = {};
+  questions.forEach((q, i) => {
+    const selected = document.querySelector(`input[name=q${i}]:checked`);
+    if (selected) {
+      if (!scores[q.area]) scores[q.area] = 0;
+      scores[q.area] += parseInt(selected.value);
+    }
+  });
+
+  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  const percentages = {};
+  for (const area in scores) {
+    percentages[area] = Math.round((scores[area] / total) * 100);
   }
-});
 
-function showResult() {
+  showResults(percentages);
+}
+
+function showResults(percentages) {
   quizContainer.classList.add("hidden");
-  nextBtn.classList.add("hidden");
+  submitButton.classList.add("hidden");
+  resultContainer.classList.remove("hidden");
 
-  const areas = Object.keys(answers);
-  const values = Object.values(answers);
-
-  const ctx = document.createElement("canvas");
-  resultDiv.appendChild(ctx);
-
+  // Gráfico
+  const ctx = document.getElementById("chart").getContext("2d");
   new Chart(ctx, {
     type: "pie",
     data: {
-      labels: areas,
-      datasets: [
-        {
-          data: values,
-          backgroundColor: [
-            "#4a90e2", "#f39c12", "#2ecc71", "#9b59b6", "#e74c3c", "#1abc9c", "#34495e", "#f1c40f", "#8e44ad", "#e67e22",
-          ],
-        },
-      ],
+      labels: Object.keys(percentages),
+      datasets: [{
+        data: Object.values(percentages),
+        backgroundColor: [
+          "#93c5fd", "#fda4af", "#fde68a", "#a7f3d0",
+          "#c7d2fe", "#f9a8d4", "#fdba74", "#86efac", "#fcd34d"
+        ],
+      }],
     },
-    options: { responsive: true },
   });
 
-  const dominantAreas = areas
-    .map((area, i) => ({ area, value: values[i] }))
-    .sort((a, b) => b.value - a.value)
-    .slice(0, 2);
-
-  const reflections = {
-    "Autoestima e Merecimento": "Você pode estar se cobrando demais para se sentir suficiente. Lembre-se: o valor não precisa ser provado.",
-    "Amor e Relacionamentos": "Pode haver medo de se abrir totalmente. A vulnerabilidade é a ponte para conexões verdadeiras.",
-    "Prosperidade e Dinheiro": "Observe se existe crença de escassez. Prosperar é também permitir-se receber.",
-    "Propósito e Realização": "Você sente um chamado para expressar mais de quem é. Ouça o impulso criativo que vem do coração.",
-    "Espiritualidade e Conexão": "A espiritualidade não é recompensa, é comunhão. Você já é parte da teia divina.",
-    "Corpo e Saúde": "O corpo é o templo da alma. Cuide dele com gentileza, não com exigência.",
-    "Culpa e Perdão": "Perdoar-se é libertar-se. Nenhum erro define quem você é.",
-    "Medo e Controle": "O controle nasce do medo. Confie: a vida tem sua própria sabedoria.",
-    "Rejeição e Pertencimento": "Você pertence por ser quem é. Não há necessidade de ajustar-se para caber.",
-    "Sucesso e Visibilidade": "Brilhar não é ego, é serviço. O mundo precisa da sua luz.",
+  // Texto reflexivo
+  let maior = Object.entries(percentages).sort((a, b) => b[1] - a[1])[0];
+  const reflexoes = {
+    "Dinheiro": "Pode haver crenças ligadas à escassez, merecimento ou medo de perder.",
+    "Amor": "Talvez existam padrões relacionados a rejeição ou autossabotagem nos relacionamentos.",
+    "Autoestima": "Você pode estar sendo chamado(a) a reconhecer seu valor genuíno.",
+    "Identidade": "Questões sobre quem você é e o quanto se expressa livremente podem estar ativas.",
+    "Propósito": "Pode haver um chamado para se alinhar mais com o que dá sentido à sua vida.",
+    "Espiritualidade": "Um convite para reconectar-se com sua fé, sentido ou espiritualidade pessoal.",
+    "Corpo": "Talvez seu corpo esteja pedindo mais cuidado, presença e aceitação.",
+    "Sucesso": "Há possivelmente crenças sobre merecimento ou medo da exposição.",
+    "Equilíbrio": "Pode haver necessidade de restaurar ritmos e cuidar melhor do seu tempo interno."
   };
 
-  const practices = {
-    "Autoestima e Merecimento": "Prática: olhe-se no espelho e diga em voz alta três qualidades suas, sentindo-as no corpo.",
-    "Amor e Relacionamentos": "Prática: escreva uma carta para você mesmo, expressando amor e aceitação incondicional.",
-    "Prosperidade e Dinheiro": "Prática: anote 5 formas pelas quais a abundância já se manifesta na sua vida.",
-    "Propósito e Realização": "Prática: reserve 10 minutos para fazer algo que te conecte ao prazer de ser quem é.",
-    "Espiritualidade e Conexão": "Prática: respire profundamente por 2 minutos e sinta-se parte de algo maior.",
-    "Corpo e Saúde": "Prática: permita-se um momento de descanso sem culpa — apenas por merecer existir.",
-    "Culpa e Perdão": "Prática: escreva uma frase começando com ‘Eu me libero da necessidade de...’ e repita-a 3 vezes.",
-    "Medo e Controle": "Prática: identifique algo pequeno que possa soltar hoje, apenas confiando no resultado.",
-    "Rejeição e Pertencimento": "Prática: lembre-se de um momento em que foi aceito exatamente como é. Reviva essa sensação.",
-    "Sucesso e Visibilidade": "Prática: compartilhe uma pequena conquista recente com alguém, sem se desculpar por ela.",
-  };
-
-  const reflectionText = dominantAreas
-    .map(
-      (a) => `
-      <h3>${a.area}</h3>
-      <p>${reflections[a.area]}</p>
-      <p><em>${practices[a.area]}</em></p>
-    `
-    )
-    .join("");
-
-  resultDiv.innerHTML = `
-    <h2>🌈 Seu Mapa de Crenças</h2>
-    <p>Estas áreas mostraram maior intensidade. Veja o que podem estar te revelando:</p>
-    ${reflectionText}
+  resultText.innerHTML = `
+    <h3>🌿 Seu mapa de crenças:</h3>
+    ${Object.entries(percentages)
+      .map(([area, perc]) => `<p><strong>${area}:</strong> ${perc}%</p>`)
+      .join("")}
+    <p><em>${reflexoes[maior[0]]}</em></p>
+    <p>🌙 Respire, observe e anote o que mais te tocou nas respostas.
+       O autoconhecimento começa quando paramos para escutar o que já está em nós.</p>
   `;
-  resultDiv.appendChild(ctx);
-  resultDiv.classList.remove("hidden");
 }
 
-renderQuestion(currentIndex);
+buildQuiz();
+submitButton.addEventListener("click", calculateResults);
