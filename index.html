@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Teste de Crenças 4.1</title>
-
+  <title>Teste de Crenças 4.2</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
   <div class="container">
-    <h1>🧭 Teste de Crenças 4.1</h1>
+    <h1>🧭 Teste de Crenças 4.2</h1>
     <p class="intro">
       Explore as áreas da sua vida e perceba quais padrões inconscientes podem estar pedindo atenção.
       Responda com sinceridade e sem julgamentos — o teste é um espelho, não um rótulo.
     </p>
 
-    <div id="quiz-container"></div>
+    <div id="quiz"></div>
+    <button id="submit">Ver Resultado</button>
 
-    <button id="next-btn" class="hidden">Próxima</button>
-    <div id="result" class="hidden"></div>
+    <div id="result" class="hidden">
+      <h2>✨ Espelho de Consciência</h2>
+      <p>Esses percentuais não são respostas, mas reflexos. Observe as áreas com maior e menor presença.
+         Onde há intensidade, pode haver crenças mais ativas — e também o chamado à cura.</p>
+
+      <canvas id="chart" width="300" height="300"></canvas>
+      <div id="resultText"></div>
+    </div>
   </div>
 </body>
 </html>
