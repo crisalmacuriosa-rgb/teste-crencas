@@ -1,177 +1,84 @@
-/* ==============================
-   Teste de Crenças 4.4 - Estilo Simbólico
-   ============================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Quicksand:wght@400;600&display=swap');
-
-:root {
-  --fundo: #f9f6f3;
-  --dourado: #d4a657;
-  --lilas: #b59ed9;
-  --texto: #2e2b25;
-  --translucido: rgba(255, 255, 255, 0.7);
-  --sombra: rgba(0, 0, 0, 0.08);
-}
-
-* {
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fcf9f7;
+  color: #3a2f2b;
+  text-align: center;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: var(--fundo);
-  color: var(--texto);
-  font-family: 'Quicksand', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 2rem;
 }
 
 .container {
   max-width: 700px;
-  width: 100%;
-  background: var(--translucido);
-  border-radius: 20px;
-  box-shadow: 0 4px 20px var(--sombra);
-  padding: 2.5rem;
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 2rem;
+  margin: 50px auto;
+  background: #fffaf7;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
 }
 
 h1 {
-  font-family: 'Marcellus', serif;
   font-size: 2rem;
-  color: var(--lilas);
+  color: #a87dc2;
 }
 
 .subtitle {
-  font-size: 1rem;
-  color: #7b6a58;
-  margin-top: 0.5rem;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.question {
   font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  font-family: 'Marcellus', serif;
-  color: #463f36;
+  color: #5b4a42;
 }
 
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-
-.option {
-  border: 1px solid var(--lilas);
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: white;
-}
-
-.option:hover {
-  background: var(--lilas);
-  color: white;
-}
-
-.option.selected {
-  background: var(--dourado);
-  color: white;
-  border-color: var(--dourado);
-  box-shadow: 0 0 10px var(--dourado);
-}
-
-.btn {
-  display: block;
-  width: 100%;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 12px;
-  background: var(--lilas);
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1.5rem;
-}
-
-.btn:hover {
-  background: var(--dourado);
-  transform: translateY(-2px);
-}
-
-#result-container {
-  text-align: center;
-}
-
-#resultChart {
-  margin: 2rem auto;
-  max-width: 500px;
-}
-
-#result-text {
-  margin-top: 1.5rem;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #4a4238;
-  text-align: justify;
-}
-
-footer {
-  text-align: center;
-  margin-top: 2rem;
+.author {
   font-size: 0.9rem;
-  color: #7a6b5a;
-  opacity: 0.8;
+  margin-bottom: 20px;
+  color: #9b8778;
 }
 
-/* Animações suaves */
 .hidden {
   display: none;
 }
 
-.fade-in {
-  animation: fadeIn 1s ease forwards;
+.button {
+  background: #b694d1;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  margin-top: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.button:hover {
+  background: #a27ac2;
 }
 
-/* Responsivo */
-@media (max-width: 600px) {
-  body {
-    padding: 1rem;
-  }
-  .container {
-    padding: 1.5rem;
-  }
-  h1 {
-    font-size: 1.6rem;
-  }
+#options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.option-btn {
+  background: #f2e8f6;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-btn:hover {
+  background: #e6d7ef;
+}
+
+.option-btn.selected {
+  border: 2px solid #a27ac2;
+  background: #efe4f5;
+}
+
+.reflection-text {
+  margin-top: 25px;
+  font-style: italic;
+  color: #5b4a42;
+  line-height: 1.6;
 }
