@@ -131,10 +131,10 @@ const archetypes = {
     "Tenho dificuldade em perdoar o que já passou.",
     "Sinto que minha história me define."
   ],
-  "💔 O Prisioneiro do Vínculo (Dependência Emocional)": [
-    "Sinto que não sei quem sou sem alguém ao meu lado.",
-    "Temo perder o amor se eu for totalmente eu mesmo(a).",
-    "Suporto relações desequilibradas por medo de ficar só."
+  "💔 O Prisioneiro do Vínculo": [
+    "Sinto medo de ficar só, mesmo em relações que me ferem.",
+    "Confundo amor com necessidade de presença.",
+    "Tolero situações dolorosas por medo de perder o outro."
   ]
 };
 
@@ -144,6 +144,7 @@ const archetypes = {
 let currentQuestionIndex = 0;
 let scores = {};
 const archetypeKeys = Object.keys(archetypes);
+let selectedAnswers = [];
 
 function renderQuestion() {
   quizContainer.innerHTML = "";
@@ -231,6 +232,7 @@ function showResults() {
       scales: {
         r: {
           beginAtZero: true,
+          max: Math.ceil(Math.max(...data)),
           ticks: { display: false },
           grid: { color: "rgba(0,0,0,0.1)" },
           angleLines: { color: "rgba(0,0,0,0.1)" }
@@ -240,10 +242,9 @@ function showResults() {
     }
   });
 
-  // Mensagem simbólica e reflexiva
   resultText.innerHTML = `
     <h3>Seu arquétipo predominante: <strong>${topArchetype}</strong></h3>
-    <p>Essa força-ferida tem guiado parte do seu caminho. Reconhecê-la não é sentença — é um convite à consciência.</p>
+    <p>Essa força-ferida tem guiado parte do seu caminho. Reconhecê-la não é uma sentença — é um convite à consciência.</p>
     <p><em>Quando olhamos o espelho interno com coragem, o reflexo deixa de ser prisão e se torna portal.</em></p>
   `;
 }
@@ -256,5 +257,4 @@ restartBtn.addEventListener("click", () => {
   renderQuestion();
 });
 
-// Iniciar quiz
 renderQuestion();
